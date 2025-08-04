@@ -1,18 +1,32 @@
+import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  SafeAreaView,
-  StatusBar,
   Alert,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 
-const DetailsScreen = ({ route, navigation }) => {
-  const { product } = route.params;
+const DetailsScreen = () => {
+  const router = useRouter();
+  
+  // Mock product data since we don't have route params in Expo Router
+  const product = {
+    id: 1,
+    name: 'Wireless Headphones',
+    price: 99.99,
+    originalPrice: 129.99,
+         image: 'headset',
+    description: 'High-quality wireless headphones with noise cancellation.',
+    rating: 4.5,
+    reviews: 128,
+    inStock: true,
+  };
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState('M');
   const [isFavorite, setIsFavorite] = useState(false);
@@ -53,7 +67,7 @@ const DetailsScreen = ({ route, navigation }) => {
         },
         {
           text: 'View Cart',
-          onPress: () => navigation.navigate('Home'),
+          onPress: () => router.push('/'),
         },
       ]
     );
@@ -80,7 +94,7 @@ const DetailsScreen = ({ route, navigation }) => {
       
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
+        <TouchableOpacity onPress={() => router.back()}>
           <Ionicons name="arrow-back" size={24} color="#333" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Product Details</Text>
@@ -194,7 +208,7 @@ const DetailsScreen = ({ route, navigation }) => {
       {/* Bottom Action Bar */}
       <View style={styles.bottomBar}>
         <View style={styles.priceContainer}>
-          <Text style={styles.totalPrice}>Total: ${(parseFloat(product.price.replace('$', '')) * quantity).toFixed(2)}</Text>
+                     <Text style={styles.totalPrice}>Total: ${(product.price * quantity).toFixed(2)}</Text>
         </View>
         <TouchableOpacity style={styles.addToCartButton} onPress={addToCart}>
           <Ionicons name="cart" size={20} color="white" style={styles.cartIcon} />

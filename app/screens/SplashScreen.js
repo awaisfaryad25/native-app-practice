@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, Dimensions, Animated,} from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+import { useRouter } from 'expo-router';
+import React, { useEffect } from 'react';
+import { Animated, Dimensions, StyleSheet, Text, View, } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
-const SplashScreen = ({ navigation }) => {
+const SplashScreen = () => {
+  const router = useRouter();
   const fadeAnim = new Animated.Value(0);
   const scaleAnim = new Animated.Value(0.3);
 
@@ -26,7 +28,7 @@ const SplashScreen = ({ navigation }) => {
 
     // Navigate to Auth screen after 3 seconds
     const timer = setTimeout(() => {
-      navigation.replace('Auth');
+      router.replace('/auth');
     }, 3000);
 
     return () => clearTimeout(timer);

@@ -1,15 +1,16 @@
+import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  TouchableOpacity,
-  TextInput,
-  SafeAreaView,
-  StatusBar,
+    FlatList,
+    SafeAreaView,
+    StatusBar,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 
 // Sample product data
 const products = [
@@ -17,7 +18,7 @@ const products = [
     id: '1',
     name: 'Wireless Headphones',
     price: '$99.99',
-    image: 'headphones',
+         image: 'headset',
     category: 'Electronics',
     rating: 4.5,
   },
@@ -65,7 +66,8 @@ const products = [
 
 const categories = ['All', 'Electronics', 'Fashion', 'Sports', 'Home'];
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = () => {
+  const router = useRouter();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [activeTab, setActiveTab] = useState('home');
@@ -79,7 +81,7 @@ const HomeScreen = ({ navigation }) => {
   const renderProduct = ({ item }) => (
     <TouchableOpacity
       style={styles.productCard}
-      onPress={() => navigation.navigate('Details', { product: item })}
+      onPress={() => router.push('/details')}
     >
       <View style={styles.productImage}>
         <Ionicons name={item.image} size={40} color="#667eea" />
@@ -124,9 +126,9 @@ const HomeScreen = ({ navigation }) => {
           <Text style={styles.greeting}>Hello, User!</Text>
           <Text style={styles.subtitle}>What are you looking for today?</Text>
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-          <Ionicons name="person-circle" size={40} color="#667eea" />
-        </TouchableOpacity>
+                 <TouchableOpacity onPress={() => router.push('/profile')}>
+           <Ionicons name="person-circle" size={40} color="#667eea" />
+         </TouchableOpacity>
       </View>
 
       {/* Search Bar */}
@@ -207,10 +209,10 @@ const HomeScreen = ({ navigation }) => {
 
         <TouchableOpacity
           style={[styles.navItem, activeTab === 'profile' && styles.activeNavItem]}
-          onPress={() => {
-            setActiveTab('profile');
-            navigation.navigate('Profile');
-          }}
+                     onPress={() => {
+             setActiveTab('profile');
+             router.push('/profile');
+           }}
         >
           <Ionicons
             name="person"
